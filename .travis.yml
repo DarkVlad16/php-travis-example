@@ -4,11 +4,11 @@ language: php
 # Введите любую версию PHP, которую вы хотите протестировать
 php:
   - 5.2  # до 5.2.17
-  - 5,3  # до 5.3.29
+  - 5.3  # до 5.3.29
   - 5.4  # недавняя версия 5.4.x
-  - 5,5  # недавняя версия 5.5.x
-  - 5,6  # недавняя версия 5.6.x
-  - 7,0  # недавняя версия 7.x
+  - 5.5  # недавняя версия 5.5.x
+  - 5.6  # недавняя версия 5.6.x
+  - 7.0  # недавняя версия 7.x
   - hhvm # недавняя версия hhvm
 
 # (Необязательно) Cписок сред, например, для тестирования различных СУБД
@@ -31,9 +31,9 @@ before_script:
   - if [[ "$DB" == "pgsql" ]]; then psql -c "create database hello_world_test;" -U postgres; fi
   - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS hello_world_test;" -uroot; fi
 
-# используйте переменную env $DB, чтобы определить phpunit.xml для использования
+# Используйте переменную env $DB, чтобы определить phpunit.xml для использования
 script: phpunit --configuration phpunit_$DB.xml --coverage-text
 
-# настроить уведомления (электронная почта, IRC и т. д.)
+# Настроить уведомления (электронная почта, IRC и т. д.)
 notifications:
   email: "gamervladok@gmail.com"
