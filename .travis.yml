@@ -18,6 +18,11 @@ env:
 
 # (Необязательно) Установить исключения и разрешенные ошибки в матрице
 matrix:
+  include:
+    - php: 5.2
+      dist: precise
+    - php: 5.3
+      dist: precise
   exclude:
     - php: hhvm
       env: DB=pgsql # PDO драйвер для pgsql не поддерживается HHVM 
