@@ -19,7 +19,6 @@ class HelloWorld
         return "Hello $what";
     }
 
-
     public function what()
     {
         $sql = "SELECT what FROM hello";

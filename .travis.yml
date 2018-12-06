@@ -1,49 +1,39 @@
-# see http://about.travis-ci.org/docs/user/languages/php/ for more hints
+# Дополнительные подсказки: http://about.travis-ci.org/docs/user/languages/php/
 language: php
 
-# list any PHP version you want to test against
+# Введите любую версию PHP, которую вы хотите протестировать
 php:
-  # using major version aliases
+  - 5.2  # до 5.2.17
+  - 5,3  # до 5.3.29
+  - 5.4  # недавняя версия 5.4.x
+  - 5,5  # недавняя версия 5.5.x
+  - 5,6  # недавняя версия 5.6.x
+  - 7,0  # недавняя версия 7.x
+  - hhvm # недавняя версия hhvm
 
-  # aliased to 5.2.17
-  - 5.2
-  # aliased to 5.3.29
-  - 5.3
-  # aliased to a recent 5.4.x version
-  - 5.4
-  # aliased to a recent 5.5.x version
-  - 5.5
-  # aliased to a recent 5.6.x version
-  - 5.6
-  # aliased to a recent 7.x version
-  - 7.0
-  # aliased to a recent hhvm version
-  - hhvm
-
-# optionally specify a list of environments, for example to test different RDBMS
+# (Необязательно) Cписок сред, например, для тестирования различных СУБД
 env:
   - DB=mysql
   - DB=pgsql
 
-# optionally set up exclusions and allowed failures in the matrix
+# (Необязательно) Установить исключения и разрешенные ошибки в матрице
 matrix:
   exclude:
     - php: hhvm
-      env: DB=pgsql  # PDO driver for pgsql is unsupported by HHVM (3rd party install for support)
+      env: DB=pgsql # PDO драйвер для pgsql не поддерживается HHVM 
   allow_failures:
     - php: 7.0
     - php: hhvm
 
-# execute any number of scripts before the test run, custom env's are available as variables
+# Выполнять любое количество скриптов перед тестовым прогоном, пользовательские env доступны как переменные
 before_script:
   - if [[ "$DB" == "pgsql" ]]; then psql -c "DROP DATABASE IF EXISTS hello_world_test;" -U postgres; fi
   - if [[ "$DB" == "pgsql" ]]; then psql -c "create database hello_world_test;" -U postgres; fi
   - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS hello_world_test;" -uroot; fi
 
-# omitting "script:" will default to phpunit
-# use the $DB env variable to determine the phpunit.xml to use
+# используйте переменную env $DB, чтобы определить phpunit.xml для использования
 script: phpunit --configuration phpunit_$DB.xml --coverage-text
 
-# configure notifications (email, IRC, campfire etc)
+# настроить уведомления (электронная почта, IRC и т. д.)
 notifications:
-  irc: "irc.freenode.org#yourfavouriteroomfortravis"
+  email: "gamervladok@gmail.com"
